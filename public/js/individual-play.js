@@ -1,7 +1,33 @@
 function playGame() {
 
+    var flashCongratulations;
     var foundByText = "Me";
     var startTime = new Date().getTime();
+
+    var toHHMMSS = function (sec_numb) {
+        var hours   = Math.floor(sec_numb / 3600);
+        var minutes = Math.floor((sec_numb - (hours * 3600)) / 60);
+        var seconds = sec_numb - (hours * 3600) - (minutes * 60);
+
+        if (hours   < 10) {hours   = "0"+hours;}
+        if (minutes < 10) {minutes = "0"+minutes;}
+        if (seconds < 10) {seconds = "0"+seconds;}
+        return hours+':'+minutes+':'+seconds;
+    };
+
+    var finishGame = function () {
+        endTime = new Date().getTime();
+        totalTime = endTime - startTime;
+
+        // hide the select name and select image banner
+        // modal with presidents and time completed
+
+        $('#game-time').html("Game Time: " + toHHMMSS(totalTime));
+        $('#game-finished-modal').modal('show');
+        $('button.start-new-game').click(function() {
+          location.reload();
+        })
+    };
 
     var presidents = [
         'George_Washington', 'John_Adams', 'Thomas_Jefferson',  'James_Maddison', 'James_Monroe',
@@ -51,24 +77,24 @@ function playGame() {
             presidentFound = presidentsFound[0];
 
         $('#' + presidentFound.index + presidentFound.president + '_mask').css('visibility', 'hidden');
-    }
+    };
 
     var matchesCurrentPresidentName = function(selectedPresident) {
         console.log("selected:"+ selectedPresident);
         console.log("current:"+ currentPresidentName.president);
         return (selectedPresident === currentPresidentName.president);
-    }
+    };
 
     var matchesCurrentPresidentImage = function(selectedPresident) {
         console.log("selected:"+ selectedPresident);
         console.log("current:"+ currentPresidentImage.president);
         return (selectedPresident === currentPresidentImage.president);
-    }
+    };
 
-    var flashCongratulations = function () {
-        $('#waytogo-label').removeClass("label-danger").addClass("label-success").text("Congratulations !!! Press Next President To Get Another").css('visibility', 'show');
+    flashCongratulations = function () {
+        $('#waytogo-label').removeClass("label-danger").addClass("label-success").text("Congratulations !!! Press Next President To Get Another").css('visibility', 'visible');
         $('#try-another-president').css('visibility', 'hidden');
-        $('#play button').css('visibility', 'hidden');
+        $('#play').find('button').css('visibility', 'hidden');
         $('#play input').css('visibility', 'hidden');
         $('#play .label-info').css('visibility', 'hidden');
         $('#enter-presidents-name').css('visibility', 'hidden');
@@ -76,9 +102,10 @@ function playGame() {
 
         var index = Math.floor(Math.random() * waytoGoImages.length);
 
-        $("#current-president-image").fadeOut(function() {
-            $("#current-president-image").attr("src", waytoGoImages[index]);
-            $("#current-president-image").fadeIn(500, function() {
+        $("#current-president-image").fadeOut(function () {
+            var $image = $("#current-president-image");
+            $image.attr("src", waytoGoImages[index]);
+            $image.fadeIn(500, function () {
                 $('#try-another-president').css('visibility', 'visible');
             });
         });
@@ -95,10 +122,11 @@ function playGame() {
         var index = Math.floor(Math.random() * tryAgainImages.length);
 
         $("#current-president-image").fadeOut(function() {
-            $("#current-president-image").attr("src", tryAgainImages[index]);
-            $("#current-president-image").fadeIn(500, function() {
+            var $image = $("#current-president-image");
+            $image.attr("src", tryAgainImages[index]);
+            $image.fadeIn(500, function() {
                 $('#try-another-president').css('visibility', "visible");
-                $('#waytogo-label').addClass("label-warning").removeClass("label-success").text("Wrong !!! Press Next President to Try Again !!!").show();
+                $('#waytogo-label').addClass("label-warning").removeClass("label-success").text("Wrong !!! Press Next President to Try Again !!!").css('visibility', 'visible');
             });
         });
     };
@@ -119,20 +147,16 @@ function playGame() {
             presidentsNotFound.push(presidentsFound[1]);
         }
 
-        if (presidentsNotFound.length === 1) {
-          endTime = new Date().getTime();
-          totalTime = endTime = startTime;
+        if (presidentsNotFound.length === 0) {
+            finishGame();
         }
-
-
-//        presidentImageSelectionScroll.arrange();
     };
 
     var updateFoundBadge = function (foundPresident) {
         var $badge = $('#' + foundPresident.president  + '_badge'+ foundPresident.index);
         $badge.addClass("found");
         $badge.attr('title', $badge.attr('title') + " found by " + foundByText);
-    }
+    };
 
     function tryPresidentName(selectedPresident) {
         // determine if the selected image matches the current president displayed to user
@@ -156,7 +180,7 @@ function playGame() {
             // and button to try another president
             flashWrong();
         }
-    }
+    };
 
     function tryPresidentImage(selectedPresident) {
         // determine if the selected image matches the current president displayed to user
@@ -179,7 +203,7 @@ function playGame() {
             // and button to try another president
             flashWrong();
         }
-    }
+    };
 
     var presidentImageSelectionCH = function (e) {
         tryPresidentName($(e.target).parent().data('president'));
@@ -194,10 +218,9 @@ function playGame() {
             var id = data.president + '_badge'+ data.index;
             var $badge = $('<span class="badge hover" title="' + title + '" id="'+ id +'">' + data.index + '</span>');
             $badge.click("");
-
             $badge.appendTo($allPresidentsContainer);
         }
-    }
+    };
 
     var createPresidentImageSelectionScroll = function () {
         var $imageSelectionBanner = $('#image-selection-banner');
@@ -215,7 +238,7 @@ function playGame() {
         });
 
 //        return startScroll('image-selection-banner', 'image-box', 250);
-    }
+    };
 
     var createPresidentsNotFoundArray = function () {
         var presidentsNotFound = []
@@ -251,39 +274,6 @@ function playGame() {
         return newPresident;
     };
 
-    var createPresidentImageFoundScroll = function () {
-        var $imageFoundBanner = $('#image-found-banner');
-        $imageFoundBanner.empty();
-
-
-        $("#image-found-banner").smoothDivScroll({
-            mousewheelScrolling: "allDirections",
-            manualContinuousScrolling: true,
-            autoScrollingMode: "onStart"
-        });
-
-//        return startScroll('image-selection-banner', 'image-box', 250);
-    }
-
-//    var startPresidentsImageFoundBanner = function () {
-////        var showImages = function() {
-//        //    var i1 = new randImg('randimg1',100,100,4,mqAry1);
-//
-//        var i2 = new randObject('current-president-image', 150, 150, 10, presidents, "image");
-//        var i3 = new randImg('waytogo', 250, 250, 10, waytoGoArray);
-//        var i4 = new randImg('tryagain', 250, 250, 10, tryAgainArray);
-//        var i5 = new randObject('nextPresidentToMatch', 100, 20, 10, presidents, "name");
-////        setTimeout(function() {replaceImg(i1)},i1.t);
-//        setTimeout(function() {replaceObj(i2)},i2.t);
-//        setTimeout(function() {replaceImg(i3)},i3.t);
-//        setTimeout(function() {replaceImg(i4)},i4.t);
-//        setTimeout(function() {replaceObj(i5)},i5.t);
-//        setupImageSelectionBanner();
-////        }
-//        startScroll('score-banner', 'image-box', 250);
-//
-//    }
-
     // initialize presidential data
     var presidentialData = createPresidentialData();
     var presidentsNotFound = createPresidentsNotFoundArray();
@@ -311,21 +301,18 @@ function playGame() {
 
     // 2. start rotating banner of presidents not yet found at the bottom attaching appropriate click handlers
     //    to test selection
-    var presidentImageSelectionScroll = createPresidentImageSelectionScroll();
+    createPresidentImageSelectionScroll();
 
     // add all of the presidential masks
-    addPresidentialImageMasksAndBadges();
-
     // 3. start rotating banner of presidents found by individual at top
-    $.each(presidentialData, function(event) {
-
-    });
+    addPresidentialImageMasksAndBadges();
 
     // 4. bind submit input to handler to test against current president's name
     $("#submit-president-name").click(function () {
         var presidentName = $("#input-president-name").val().replace(/\s/g, '_');
         tryPresidentImage(presidentName);
-    })
+    });
+
     $("#input-president-name").bind('keypress', function(e)
     {
         if(e.keyCode == 13)

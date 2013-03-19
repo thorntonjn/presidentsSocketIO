@@ -1,0 +1,12 @@
+{
+    "name": "express.io-examples",
+    "version": "1.0.1",
+    "author": "Brad Carleton <brad@techpines.com>",
+    "dependencies": {
+        "express.io": "*",
+        "redis": "*",
+        "socket.io-mongo": "*",
+        "ejs": "~0.7.1",
+        "ejs-locals":"~1.0.2"
+    }
+}

@@ -1,0 +1,10 @@
+/*
+ * Floating Banner jQuery Plugin v1.0
+ * http://code.google.com/p/floatingbanner/
+ *
+ * Copyright 2010, Funke Web Solutions
+ * Released under the GPL Version 3 license.
+ *
+ * $Id: floatingbanner.css 4172 2010-04-05 05:57:21Z rob $
+ */
+ .floating-banner {position: fixed; top: 0; z-index: 1000}

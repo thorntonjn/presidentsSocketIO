@@ -1,0 +1,37 @@
+<%
+    page = {
+      title: "Meet All 44 Presidents Game",
+      sub_channel_name: "Individual_Mode",
+      description: "Game to match and learn the 44 presidents of the United States",
+      keywords: "44 presidents",
+    }
+%>
+
+<% layout('layout') -%>
+
+<link href="css/presidents.css" rel="stylesheet" type="text/css">
+<link type="text/css" rel="stylesheet" href="css/floatingbanner.css" media="screen"/>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" media="screen"/>
+<link type="text/css" rel="stylesheet" href="css/smoothDivScroll.css" media="screen"/>
+
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="js/scroll/jquery-ui-1.8.23.custom.min.js"></script>
+<script type="text/javascript" src="js/scroll/jquery.kinetic.js"></script>
+<script type="text/javascript" src="js/scroll/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="js/scroll/jquery.smoothDivScroll-1.3.js"></script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/floatingbanner.js"></script>
+<script type="text/javascript" src="js/scroll.js"></script>
+<script type="text/javascript" src="js/individual-play.js"></script>
+<script type="text/javascript" src="js/randimg.js"></script>
+
+
+<body id="index">
+<%- partial('partials/subnav') %>
+<div class="row-fluid">
+<%- partial('partials/play') %>
+<%- partial('partials/all-presidents') %>
+</div>
+<%- partial('partials/play-action') %>
+</body>

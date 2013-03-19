@@ -1,0 +1,114 @@
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<link href="css/presidents.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/floatingbanner.js"></script>
+<link type="text/css" rel="stylesheet" href="css/floatingbanner.css" media="screen"/>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" media="screen"/>
+
+<script type="text/javascript" src="js/scroll.js"></script>
+<script type="text/javascript" src="js/presidents.js"></script>
+<script type="text/javascript" src="js/randimg.js">
+</script>
+<body id="index">
+<div class="navbar navbar-static-top">
+    <div class="navbar-inner">
+        <a class="brand navbar-inverse" href="#">Meet All 44 Presidents</a>
+        <ul class="nav">
+            <li class="divider-vertical"></li>
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Room1</a></li>
+            <li><a href="#">Room2</a></li>
+            <li><a href="#">Chat</a></li>
+            <form class="navbar-form pull-left">
+                <input type="text" class="span2">
+                <button type="submit" class="btn">SignIn</button>
+            </form>
+        </ul>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="container1">
+        <div id="window">
+            <div class="box red"><img src="images/1_GeorgeWashington.jpg"/></div>
+            <div class="box green">Tom - 15 points</div>
+            <div class="box blue">Jill - 22 points</div>
+            <div class="box yellow">Bob - 18 pts</div>
+            <div class="box purple">Mary - 10 pts</div>
+            <div class="box purple">Mary - 10 pts</div>
+            <div class="box cyan"> Tony - 2 pts</div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+
+    <div id="main">
+        <div style="margin:20px;">
+            <img src="images/44presidents.png"/>
+            <img src="images/34_DwightDEisenhower_mask.png"/>
+            <img src="images/1_GeorgeWashington_mask.png"/>
+            <img src="images/2_JohnAdams_mask.png"/>
+            <img src="images/3_ThomasJefferson_mask.png"/>
+
+
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <!-- Button to trigger modal -->
+    <a href="#myModal" role="button" class="btn" data-toggle="modal">Begin</a>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Enter Your Username To Play Against Group</h3>
+        </div>
+        <div class="modal-body">
+            <label>User Name</label>
+            <input type="text"/>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-primary">Save changes</button>
+        </div>
+    </div>
+</div>
+<div class="row-fluid results">
+
+    <div class="span4"><div id="tryagain" ></div></div>
+    <div id="play" class="span4">
+        <!--<div id="president-name">Click Thomas Jefferson's Photo</div>-->
+        <!--<div id="randimg1"></div>-->
+        <button type="submit" class="btn">Submit President's Name</button><input type="text" name="t" value="">
+        <div id="randimg2"></div>
+        <div class="label-info">&mdash;OR&mdash;</div>
+
+    </div>
+    <div id="waytogo" class="span4"></div>
+
+</div>
+
+<div class="row row-fluid">
+
+    <div class="btn span4">Try Another President</div>
+
+    <div class="label span4">Select&nbsp;<span id="nextPresidentToMatch"></span><span class="label">below</span></div>
+    <div class="label-success span4">Congratulations !!!</div>
+</div>
+    <div id="container2">
+        <div id="window2">
+            <div class="box2 red"><img src="images/1_GeorgeWashington.jpg"/></div>
+            <div class="box2 green">Tom - 15 points</div>
+            <div class="box2 blue">Jill - 22 points</div>
+            <div class="box2 yellow">Bob - 18 pts</div>
+            <div class="box2 purple">Mary - 10 pts</div>
+            <div class="box2 purple">Mary - 10 pts</div>
+            <div class="box2 cyan"> Tony - 2 pts</div>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>

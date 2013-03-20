@@ -19,8 +19,14 @@ function playGame(config) {
     };
 
     var finishGame = function (elapsedTime) {
-        var endTime = String(Math.round(new Date().getTime()/1000));
-        totalTime = (endTime - startTime);
+        var timeString = elapsedTime;
+        var endTime;
+
+        if (!timeString) {
+            endTime = String(Math.round(new Date().getTime()/1000));
+            totalTime = (endTime - startTime);
+            timeString = toHHMMSS(totalTime);
+        }
 
         if (elapsedTime) {
             totalTime = elapsedTime;
@@ -29,10 +35,12 @@ function playGame(config) {
         // hide the select name and select image banner
         // modal with presidents and time completed
 
-        $('#game-time').html("Game Time: " + toHHMMSS(totalTime));
+        $('#game-time').html("Game Time: " + timeString);
         $('#game-finished-modal').modal('show');
         $('button.start-new-game').click(function() {
-          location.reload();
+          if (config.type == "individual-play") {
+            location.reload();
+          }
         })
     };
 
@@ -114,13 +122,14 @@ function playGame(config) {
     };
 
     var flashCongratulations = function () {
-        $('#waytogo-label').removeClass("label-danger").addClass("label-success").text("Congratulations !!! Press Next President To Get Another").css('visibility', 'visible');
+        $('#waytogo-label').removeClass().addClass("label-success").text("Congratulations !!! Press Next President To Get Another").css('visibility', 'visible');
         $('#try-another-president').css('visibility', 'hidden');
         $('#play').find('button').css('visibility', 'hidden');
         $('#play input').css('visibility', 'hidden');
         $('#play .label-info').css('visibility', 'hidden');
         $('#enter-presidents-name').css('visibility', 'hidden');
-        $('#selectImageBelow').css('visibility', 'hidden');
+        $('#selectImageBelow').addClass("label-success").text("Congratulations !!! Press Next President To Get Another");
+//        $('#selectImageBelow').css('visibility', 'hidden');
 
         var index = Math.floor(Math.random() * waytoGoImages.length);
 
@@ -139,7 +148,8 @@ function playGame(config) {
         $('#play input').css('visibility', 'hidden');
         $('#play .label-info').css('visibility', 'hidden');
         $('#enter-presidents-name').css('visibility', 'hidden');
-        $('#selectImageBelow').css('visibility', 'hidden');
+        $('#selectImageBelow').html("Wrong !!! Press Next President to Try Again !!!");
+//        $('#selectImageBelow').css('visibility', 'hidden');
 
         var index = Math.floor(Math.random() * tryAgainImages.length);
 
@@ -148,10 +158,36 @@ function playGame(config) {
             $image.attr("src", tryAgainImages[index]);
             $image.fadeIn(500, function() {
                 $('#try-another-president').css('visibility', "visible");
-                $('#waytogo-label').addClass("label-warning").removeClass("label-success").text("Wrong !!! Press Next President to Try Again !!!").css('visibility', 'visible');
+                $('#waytogo-label').removeClass().addClass("label-warning").text("Wrong !!! Press Next President to Try Again !!!").css('visibility', 'visible');
             });
         });
     };
+
+    var flashTooSlow = function (president) {
+        var tooSlowLabelText = "Too slow !!! " + president.foundBy + " identified " + "#" + president.index + " " + president.name;
+        $('#waytogo-label').removeClass().addClass("label-warning").text(tooSlowLabelText).css('visibility', 'visible');
+        $('#try-another-president').css('visibility', 'hidden');
+        $('#play').find('button').css('visibility', 'hidden');
+        $('#play input').css('visibility', 'hidden');
+        $('#play .label-info').css('visibility', 'hidden');
+        $('#enter-presidents-name').css('visibility', 'hidden');
+        $('#selectImageBelow').html(tooSlowLabelText);
+//        $('#selectImageBelow').css('visibility', 'hidden');
+
+        var index = Math.floor(Math.random() * tryAgainImages.length);
+
+        $("#current-president-image").fadeOut(function () {
+            var $image = $("#current-president-image");
+            $image.attr("src", tryAgainImages[index]);
+            $image.fadeIn(500, function () {
+                $('#try-another-president').css('visibility', 'visible');
+                $('#waytogo-label').removeClass().addClass("label-warning").css('visibility', 'visible');
+            });
+        });
+
+    };
+
+
 
     var removePresidentFromImageSelectionScroll = function(selectedPresident) {
 
@@ -166,12 +202,7 @@ function playGame(config) {
         // add the president to found list
         presidentsFound.push(selectedPresident);
 
-        // When the list of presidents not found goes to 0 we are done
-        if (presidentsNotFound.length === 0) {
-            if (config.type === 'individual-play') {
-                finishGame();
-            }
-        }
+
     };
 
     var restorePresidentToImageSelectionScroll = function(resetPresident) {
@@ -216,12 +247,6 @@ function playGame(config) {
         // update the badge on the all presidents image
         updateFoundBadge(foundPresident);
 
-        if (foundPresident.foundBy === myName) {
-            // show the success image
-            // and button to try another president
-            flashCongratulations();
-        }
-
     }
 
     var updateClientWithResetPresident = function(resetPresident){
@@ -248,6 +273,18 @@ function playGame(config) {
             currentPresidentName.foundBy = myName;
             updateServerWithFoundPresident(currentPresidentName);
             updateClientWithFoundPresident(currentPresidentName);
+
+            // show the success image
+            // and button to try another president
+            flashCongratulations();
+
+            // When the list of presidents not found goes to 0 we are done
+            if (presidentsNotFound.length === 0) {
+                if (config.type === 'individual-play') {
+                    finishGame();
+                }
+            }
+
         } else {
             // show the failure image
             // and button to try another president
@@ -261,6 +298,17 @@ function playGame(config) {
             currentPresidentImage.foundBy = myName;
             updateServerWithFoundPresident(currentPresidentImage);
             updateClientWithFoundPresident(currentPresidentImage);
+            // show the success image
+            // and button to try another president
+            flashCongratulations();
+
+            // When the list of presidents not found goes to 0 we are done
+            if (presidentsNotFound.length === 0) {
+                if (config.type === 'individual-play') {
+                    finishGame();
+                }
+            }
+
         } else {
             // show the failure image
             // and button to try another president
@@ -320,7 +368,7 @@ function playGame(config) {
         $('#play input').css('visibility', 'visible');
         $('#play .label-info').css('visibility', 'visible');
         $('#enter-presidents-name').css('visibility', 'visible');
-        $('#selectImageBelow').css('visibility', 'visible');
+        $('#selectImageBelow').removeClass().addClass('label-important').css('visibility', 'visible');
         $('#waytogo-label').css('visibility', 'hidden');
 
         return newPresident;
@@ -333,19 +381,37 @@ function playGame(config) {
         $('#selectImageBelow').html("Select " + newPresident.name +"'s image Below");
         $('#play .label-info').css('visibility', 'visible');
         $('#enter-presidents-name').css('visibility', 'visible');;
-        $('#selectImageBelow').css('visibility', 'visible');;
+        $('#selectImageBelow').removeClass().addClass('label-important').css('visibility', 'visible');;
         $('#waytogo-label').css('visibility', 'hidden');
         return newPresident;
     };
 
-    var updatePresidents = function (presidents, forceUpdate) {
+    var updatePresidents = function (presidents, initializing) {
         var president;
         for (var i = 0; i < presidents.length; i++){
             president= presidents[i];
             if (president.foundBy) {
                 updateClientWithFoundPresident(president);
+
+                if (president.president === currentPresidentImage.president && president.index === currentPresidentImage.index) {
+                    if (!initializing) {
+                        flashTooSlow(president);
+                    } else {
+                       getNextPresidentImageSelection();
+                    }
+                }
+
+                if (president.president === currentPresidentName.president && president.index === currentPresidentName.index) {
+                    if (!initializing) {
+                        flashTooSlow(president);
+                    } else {
+                       getNextPresidentNameSelection();
+                    }
+                }
+
+
             } else {
-                if (forceUpdate) {
+                if (initializing) {
                     updateClientWithResetPresident(president);
                 }
             }

@@ -1,4 +1,4 @@
-var myGame;
+//var myGame;
 
 var allPlay = function (myName) {
     var myGame;
@@ -21,6 +21,11 @@ var allPlay = function (myName) {
         socket.on('update-presidents', function (presidents) {
             console.log('update-presidents' + JSON.stringify(presidents));
             myGame.updatePresidents(presidents, true);
+        });
+
+        socket.on('game-finished', function(data) {
+            console.log('game-finished !!!!!');
+            myGame.finishGame(data);
         });
 
         // Listen for updates to onepresidents
@@ -62,6 +67,13 @@ $(document).ready(function() {
     var allPlayGame;
     $('#all-play-modal').modal('show');
 
+    $('button.start-new-game').click(function() {
+        if (allPlayGame) {
+            allPlayGame.socket.emit('reset-all-play-game');
+        }
+        location.reload();
+    });
+
     $('button.start-new-all-play-game').click(function() {
         // Login to socket IO with user name
         myName = $("#all-play-name").val();
@@ -78,9 +90,6 @@ $(document).ready(function() {
 //        location.reload();
     });
 
-    req.io.on('game-finished', function(data) {
-        allPlayGame(finish);
-    });
 
     $('.nav li').removeClass('active');
     $('#nav-all-play').addClass('active');

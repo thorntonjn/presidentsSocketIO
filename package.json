@@ -5,8 +5,10 @@
     "dependencies": {
         "express.io": "*",
         "redis": "*",
-        "socket.io-mongo": "*",
         "ejs": "~0.7.1",
         "ejs-locals":"~1.0.2"
+    },
+    "scripts": {
+      "start":"node app.js"
     }
 }

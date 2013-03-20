@@ -20,5 +20,5 @@ app.use(express.static(__dirname + '/public'));
 routes = require('./routes/index')(app);
 io_routes = require('./routes/socket-io')(app);
 
-console.log("listening on localhost:7076");
-app.listen(7076)
+console.log("listening on localhost:8080");
+app.listen(8080);

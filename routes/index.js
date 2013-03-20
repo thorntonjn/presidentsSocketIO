@@ -24,7 +24,7 @@ module.exports = function (app) {
     // Play as a team #1 for best time.
     app.get('/team1', function(req, res) {
         req.session.loginDate = new Date().toString()
-        res.render('room1', {title:'Play as memer of team #1 for best time.'});
+        res.render('room1', {title:'Play as member of team #1 for best time.'});
     });
      // Play as a team #2 for best time.
     app.get('/team2', function(req, res) {

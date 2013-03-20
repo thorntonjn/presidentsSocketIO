@@ -3,15 +3,25 @@
         <a class="brand navbar-inverse" href="#">Meet All 44 Presidents</a>
         <ul class="nav">
             <li class="divider-vertical"></li>
-            <li class="active"><a href="/">Individual Play</a></li>
-            <li><a href="/all-play">All Play</a></li>
-            <li><a href="/team1">Join Team #1</a></li>
-            <li><a href="/team2">Join Team #2</a></li>
-            <li><a class="new-game" href="#">New Game</a></li>
-            <div class="navbar-form pull-left">
-                <input type="text" class="span2">
-                <button id="sign-in" type="submit" class="btn">SignIn</button>
-            </div>
+            <li id="nav-individual-play" class="active"><a href="/">Individual Play</a></li>
+            <li id="nav-all-play" ><a href="/all-play">All Play</a></li>
+            <li id="nav-team1-play"><a href="/team1">Join Team #1</a></li>
+            <li id="nav-team2-play"><a href="/team2">Join Team #2</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Reset Game
+                    <b class="caret"></b>
+
+                <ul class="dropdown-menu">
+                    <li><a id="new-all-play-game" href="#">reset all play</a></li>
+                    <li><a id="new-team1-game" href="#">reset team #1</a></li>
+                    <li><a id="new-team2-game" href="#">reset team #1</a></li>
+                </ul>
+                </a>
+            </li>
+
+            <li><a id="sign-in-name" href="#">Not Signed In</a></li>
+            <!--<div class="navbar-form pull-left"></div>-->
         </ul>
     </div>
 </div>

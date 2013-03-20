@@ -114,7 +114,7 @@ body {
 }
 
 .red { background-color: #ff6868;}
-.green { background-color: 7cd980;}
+.green { background-color: #7cd980;}
 .blue { background-color: #5793ea;}
 .yellow { background-color: #f9f69e;}
 .purple { background-color: #ffbffc;}
@@ -124,13 +124,14 @@ body {
     margin:10px;
 }
 
-#makeMeScrollable div.scrollableArea *
+#image-selection-banner div.scrollableArea *
 {
     position: relative;
     display: block;
     float: left;
     margin: 0;
     padding: 0;
+    /*min-width:8000px;*/
     /* If you don't want the images in the scroller to be selectable, try the following
         block of code. It's just a nice feature that prevent the images from
         accidentally becoming selected/inverted when the user interacts with the scroller. */
@@ -139,6 +140,12 @@ body {
     -moz-user-select: none;
     -o-user-select: none;
     user-select: none;
+}
+
+#image-selection-banner div.scrollableArea
+{
+    width:6600px;
+    margin-left:161px;
 }
 
 #selectImageBelow {
@@ -170,47 +177,47 @@ body {
     -webkit-touch-callout: none;
 }
 
-#George_Washington_badge1 {top:251px; left:60px;}
-#John_Adams_badge2 {top:281px; left:150px;}
-#Thomas_Jefferson_badge3 {top:220px; left:225px;}
-#James_Maddison_badge4 {top:225px; left:275px;}
-#James_Monroe_badge5 {top:220px; left:325px;}
-#John_Quincy_Adams_badge6 {top:265px; left:385px;}
-#Andrew_Jackson_badge7 {top:220px; left:420px;}
-#Martin_Van_Buren_badge8 {top:235px; left:480px;}
-#William_Henry_Harrison_badge9 {top:220px; left:520px;}
-#John_Tyler_badge10 {top:231px; left:570px;}
-#James_K_Polk_badge11 {top:165px; left:90px;}
-#Zachary_Taylor_badge12 {top:165px; left:130px;}
-#Millard_Fillmore_badge13 {top:165px; left:175px;}
-#Franklin_Pierce_badge14 {top:165px; left:220px;}
-#James_Buchanan_badge15 {top:165px; left:260px;}
-#Abraham_Lincoln_badge16 {top:180px; left:300px;}
-#Andrew_Johnson_badge17 {top:180px; left:355px;}
-#Ulysses_S_Grant_badge18 {top:165px; left:390px;}
-#Rutherford_Hayes_badge19 {top:165px; left:440px;}
-#James_Garfield_badge20 {top:165px; left:480px;}
-#Chester_Aurthur_badge21 {top:165px; left:525px;}
-#Grover_Cleveland_badge22 {top:95px; left:100px;}
-#Benjamin_Harrison_badge23 {top:100px; left:145px;}
-#Grover_Cleveland_badge24 {top:115px; left:100px;}
-#William_Mckinley_badge25 {top:95px; left:200px;}
-#Theodore_Roosevelt_badge26 {top:95px; left:245px;}
-#William_Howard_Taft_badge27 {top:95px; left:290px;}
-#Woodrow_Wilson_badge28 {top:90px; left:335px;}
-#Warren_G_Harding_badge29 {top:90px; left:375px;}
-#Calvin_Coolidge_badge30 {top:115px; left:417px;}
-#Herbert_Hoover_badge31 {top:95px; left:443px;}
-#Franklin_D_Roosevelt_badge32 {top:100px; left:490px;}
-#Harry_S_Truman_badge33 {top:90px; left:522px;}
-#Dwight_D_Eisenhower_badge34 {top:35px; left:95px;}
-#John_F_Kennedy_badge35 {top:26px; left:145px;}
-#Lyndon_B_Johnson_badge36 {top:26px; left:190px;}
-#Richard_Nixon_badge37 {top:26px; left:230px;}
-#Gerald_Ford_badge38 {top:26px; left:265px;}
-#Jimmy_Carter_badge39 {top:26px; left:305px;}
-#Ronald_Reagan_badge40 {top:26px; left:345px;}
-#George_Bush_badge41 {top:26px; left:390px;}
-#Bill_Clinton_badge42 {top:26px; left:425px;}
-#George_W_Bush_badge43 {top:26px; left:470px;}
-#Barack_Obama_badge44 {top:26px; left:513px;}
+#George_Washington_badge_1 {top:251px; left:60px;}
+#John_Adams_badge_2 {top:281px; left:150px;}
+#Thomas_Jefferson_badge_3 {top:220px; left:225px;}
+#James_Maddison_badge_4 {top:225px; left:275px;}
+#James_Monroe_badge_5 {top:220px; left:325px;}
+#John_Quincy_Adams_badge_6 {top:265px; left:385px;}
+#Andrew_Jackson_badge_7 {top:220px; left:420px;}
+#Martin_Van_Buren_badge_8 {top:235px; left:480px;}
+#William_Henry_Harrison_badge_9 {top:220px; left:520px;}
+#John_Tyler_badge_10 {top:231px; left:570px;}
+#James_K_Polk_badge_11 {top:165px; left:90px;}
+#Zachary_Taylor_badge_12 {top:165px; left:130px;}
+#Millard_Fillmore_badge_13 {top:165px; left:175px;}
+#Franklin_Pierce_badge_14 {top:165px; left:220px;}
+#James_Buchanan_badge_15 {top:165px; left:260px;}
+#Abraham_Lincoln_badge_16 {top:180px; left:300px;}
+#Andrew_Johnson_badge_17 {top:180px; left:355px;}
+#Ulysses_S_Grant_badge_18 {top:165px; left:390px;}
+#Rutherford_Hayes_badge_19 {top:165px; left:440px;}
+#James_Garfield_badge_20 {top:165px; left:480px;}
+#Chester_Aurthur_badge_21 {top:165px; left:525px;}
+#Grover_Cleveland_badge_22 {top:95px; left:100px;}
+#Benjamin_Harrison_badge_23 {top:100px; left:145px;}
+#Grover_Cleveland_badge_24 {top:115px; left:100px;}
+#William_Mckinley_badge_25 {top:95px; left:200px;}
+#Theodore_Roosevelt_badge_26 {top:95px; left:245px;}
+#William_Howard_Taft_badge_27 {top:95px; left:290px;}
+#Woodrow_Wilson_badge_28 {top:90px; left:335px;}
+#Warren_G_Harding_badge_29 {top:90px; left:375px;}
+#Calvin_Coolidge_badge_30 {top:115px; left:417px;}
+#Herbert_Hoover_badge_31 {top:95px; left:443px;}
+#Franklin_D_Roosevelt_badge_32 {top:100px; left:490px;}
+#Harry_S_Truman_badge_33 {top:90px; left:522px;}
+#Dwight_D_Eisenhower_badge_34 {top:35px; left:95px;}
+#John_F_Kennedy_badge_35 {top:26px; left:145px;}
+#Lyndon_B_Johnson_badge_36 {top:26px; left:190px;}
+#Richard_Nixon_badge_37 {top:26px; left:230px;}
+#Gerald_Ford_badge_38 {top:26px; left:265px;}
+#Jimmy_Carter_badge_39 {top:26px; left:305px;}
+#Ronald_Reagan_badge_40 {top:26px; left:345px;}
+#George_Bush_badge_41 {top:26px; left:390px;}
+#Bill_Clinton_badge_42 {top:26px; left:425px;}
+#George_W_Bush_badge_43 {top:26px; left:470px;}
+#Barack_Obama_badge_44 {top:26px; left:513px;}

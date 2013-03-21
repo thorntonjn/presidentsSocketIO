@@ -9,7 +9,7 @@ module.exports = function (app) {
     // Session is automatically setup on initial request.
     app.get('/all-play', function(req, res) {
         req.session.loginDate = new Date().toString()
-        res.render('all-play', {title:'Play as Group'});
+        res.render('all-play', {title:'Play as Group.'});
     });
 
     // Play as a team #1 for best time.

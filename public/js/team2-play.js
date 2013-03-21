@@ -19,7 +19,7 @@ $(document).ready(function() {
         if (myName) {
             $('#all-play-modal').modal('hide');
             $("#sign-in-name").html("Signed in as " + myName);
-            ioPlayGame = ioPlay(myName, "all-play");
+            ioPlayGame = ioPlay(myName, "team2-play");
         }
     });
 
@@ -39,12 +39,12 @@ $(document).ready(function() {
             if (myName) {
                 $('#all-play-modal').modal('hide');
                 $("#sign-in-name").html("Signed in as " + myName);
-                ioPlayGame = ioPlay(myName, "all-play");
+                ioPlayGame = ioPlay(myName, "team2-play");
             }
         }
     });
 
     $('.nav li').removeClass('active');
-    $('#nav-all-play').addClass('active');
+    $('#nav-team2-play').addClass('active');
 
 });

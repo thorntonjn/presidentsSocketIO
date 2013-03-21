@@ -1,19 +1,17 @@
-var teamPlay = function (myName, teamName) {
+var ioPlay = function (myName, type) {
     var myGame;
 
-    var startupSocketIO = function (myName, teamName) {
+    var startupSocketIO = function (myName) {
         var socket = io.connect();
-        var type = teamName + "-play";
 
         // Emit ready event.
         console.log('socket.emit("ready","' + myName + '")');
         socket.emit('ready', myName);
 
-        // Listen for updates to one or more presidents
+        // Send to the server what type of game I want to play
         socket.on('game-type', function () {
-            console.log('socket.emit("ready","all-play")');
-
-            socket.emit('game-type', 'team1-play')
+            console.log('socket.emit("ready",'+ type + '")');
+            socket.emit('game-type', type)
         });
 
         // Listen for updates to one or more presidents
@@ -22,12 +20,13 @@ var teamPlay = function (myName, teamName) {
             myGame.updatePresidents(presidents, true);
         });
 
+        // Watch for game completion
         socket.on('game-finished', function(data) {
             console.log('game-finished !!!!!');
             myGame.finishGame(data);
         });
 
-        // Listen for updates to onepresidents
+        // Listen for update to single president
         socket.on('update-president', function (presidents) {
             console.log('update-presidents' + JSON.stringify(presidents));
             myGame.updatePresidents(presidents);
@@ -39,7 +38,7 @@ var teamPlay = function (myName, teamName) {
         });
 
         var updateServerWithFoundPresident = function(presidentFound) {
-            socket.emit('update-president', presidentFound );
+           socket.emit('update-president', presidentFound );
         }
 
         var autoCompleteProcessCallBack = null;
@@ -75,8 +74,8 @@ var teamPlay = function (myName, teamName) {
 
         // Listen for session event it will contain initial presidentialState state
         socket.on('session', function(data) {
-            console.log('session: join-all-play');
-            socket.emit('join-all-play');
+            console.log('session: emit join-game');
+            socket.emit('join-game');
             myGame = playGame(
                 {   "name":myName, type:"all-play",
                     updateServerWithFoundPresident:updateServerWithFoundPresident,
@@ -88,10 +87,9 @@ var teamPlay = function (myName, teamName) {
         socket.on('auto-complete-answer', function (possibilities) {
             console.log('auto-complete-answer');
             autoCompleteProcessCallBack(toTitleCaseWords(possibilities));
-//            $("#input-president-name").data("source", possibilities);
         });
 
-        // Only allow game to be reset one
+        // Only allow game to be reset once
         var gameReset = false;
         socket.on('reset-all-play-game', function () {
             console.log('reset-all-play-game received');
@@ -102,21 +100,6 @@ var teamPlay = function (myName, teamName) {
             return gameReset;
         }
 
-
-//        var inputText = "";
-//        $("#input-president-name").bind('keypress', function(e)
-//        {
-//            var  newInputText = $("#input-president-name").val();
-//            if (inputText !== newInputText) {
-//                inputText = newInputText;
-//                if (inputText && inputText.length > 0) {
-//                    console.log('auto-complete-guess' + inputText);
-//                   socket.emit('auto-complete-guess', inputText);
-//                }
-//            }
-//        });
-
-
         return {socket:socket, gameReset:hasGameBeenReset}
     }
 
@@ -124,59 +107,3 @@ var teamPlay = function (myName, teamName) {
 
 }
 
-$(document).ready(function() {
-    var allPlayGame;
-    $('#all-play-modal').modal('show');
-
-    var gameReset = false;
-    $('button.start-new-game').click(function() {
-        if (allPlayGame && !gameReset && !allPlayGame.gameReset()) {
-            gameReset = true;
-            if (gameReset) {
-                allPlayGame.socket.emit('reset-all-play-game');
-            }
-        }
-        location.reload();
-    });
-
-    $('button.start-new-all-play-game').click(function() {
-        // Login to socket IO with user name
-        myName = $("#all-play-name").val();
-        if (myName) {
-            $('#all-play-modal').modal('hide');
-            $("#sign-in-name").html("Signed in as " + myName);
-            allPlayGame = allPlay(myName);
-        }
-    });
-
-    $('#new-all-play-game').click(function () {
-        if (allPlayGame && allPlayGame.gameReset()) {
-            console.log('new-all-play-game: socket.emit("reset-all-play-game")');
-            allPlayGame.socket.emit('reset-all-play-game');
-        }
-        location.reload();
-    });
-
-    $("#all-play-name").bind('keypress', function(e)
-    {
-        if(e.keyCode == 13)
-        {
-            myName = $("#all-play-name").val();
-            if (myName) {
-                $('#all-play-modal').modal('hide');
-                $("#sign-in-name").html("Signed in as " + myName);
-                allPlayGame = allPlay(myName);
-            }
-        }
-    });
-
-    $('.nav li').removeClass('active');
-    $('#nav-all-play').addClass('active');
-
-
-
-
-});
-
-
-// Autocomplete name submission - 30 minutes

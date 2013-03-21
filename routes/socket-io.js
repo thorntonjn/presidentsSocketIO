@@ -5,15 +5,6 @@ module.exports = function (app) {
     var team2Presidents = require('../models/team2Presidents');
     var autocomplete = require('../models/autocomplete')
 
-    app.io.route('auto-complete-guess', function (req) {
-        console.log('auto-complete-guess', req.data);
-        var presidentPrefix = req.data.toLowerCase();
-        var guesses = autocomplete.trie.retrieve(presidentPrefix);
-        console.log('auto-complete-answer', guesses)
-        req.io.emit('auto-complete-answer', guesses );
-    });
-
-
     // Setup a route for the ready event, and add session data.
     app.io.route('ready', function (req) {
         req.session.name = req.data;
@@ -34,6 +25,12 @@ module.exports = function (app) {
               message: 'New client in the ' + req.session.gameType + ' room.'
             })
         }
+        if (req.session.gameType === "team2-play") {
+            req.io.join("team2-play");
+            req.io.room(req.data).broadcast('announce', {
+                message: 'New client in the ' + req.session.gameType + ' room.'
+            })
+        }
         req.session.save(function () {
             console.log('session.save emit session:', req.session);
 
@@ -41,21 +38,21 @@ module.exports = function (app) {
         })
     });
 
-    app.io.route('join-all-play', function (req) {
+    app.io.route('join-game', function (req) {
         switch (req.session.gameType) {
             case 'all-play':
-                console.log('join-all-play io.emit:', presidents.getPresidentialData());
+                console.log('join-game:all-play io.emit:', presidents.getPresidentialData());
                 req.io.emit('update-presidents', presidents.getPresidentialData());
                 checkGameFinished(presidents);
                 break;
             case 'team1-play':
-                console.log('join-team1-play io.emit:', team1Presidents.getPresidentialData());
+                console.log('join-game:team1-play io.emit:', team1Presidents.getPresidentialData());
                 req.io.emit('update-presidents', team1Presidents.getPresidentialData());
                 checkGameFinished(team1Presidents);
                 break;
             case 'team2-play':
-                console.log('join-team1-play io.emit:', team1Presidents.getPresidentialData());
-                req.io.emit('update-presidents', team1Presidents.getPresidentialData());
+                console.log('join-game:team2-play io.emit:', team2Presidents.getPresidentialData());
+                req.io.emit('update-presidents', team2Presidents.getPresidentialData());
                 checkGameFinished(team2Presidents);
                 break;
 
@@ -78,10 +75,10 @@ module.exports = function (app) {
         console.log('update-president:', req.data);
         switch (req.session.gameType) {
             case 'all-play':
-                console.log('join-all-play io.emit:', presidents.getPresidentialData());
+                console.log('update-president:all-play io.emit:', presidents.getPresidentialData());
                 var updatedPresident = presidents.updatePresident(req.data);
                 if (updatedPresident) {
-                    console.log('president was updated', updatedPresident)
+                    console.log('president was updated all-play', updatedPresident)
                     req.io.broadcast('update-president', [updatedPresident]);
                 } else {
                     console.log('president was not updated !!!')
@@ -98,7 +95,7 @@ module.exports = function (app) {
             case 'team1-play':
                 var updatedPresident = team1Presidents.updatePresident(req.data);
                 if (updatedPresident) {
-                    console.log('president was updated', updatedPresident)
+                    console.log('president was updated team1-play', updatedPresident)
                     req.io.room('team1-play').broadcast('update-president', [updatedPresident]);
                 } else {
                     console.log('president was not updated !!!')
@@ -116,8 +113,8 @@ module.exports = function (app) {
             case 'team2-play':
                 var updatedPresident = team2Presidents.updatePresident(req.data);
                 if (updatedPresident) {
-                    console.log('president was updated', updatedPresident)
-                    req.io.room('team1-play').broadcast('update-president', [updatedPresident]);
+                    console.log('president was updated team2-play', updatedPresident)
+                    req.io.room('team2-play').broadcast('update-president', [updatedPresident]);
                 } else {
                     console.log('president was not updated !!!')
 
@@ -128,7 +125,7 @@ module.exports = function (app) {
                     }
                 }
 
-                checkGameFinished(team1Presidents);
+                checkGameFinished(team2Presidents);
                 break;
 
             default:
@@ -153,8 +150,8 @@ module.exports = function (app) {
                 req.io.room('team1-play').broadcast('reset-all-play-game');
                 break;
             case 'team2-play':
-                team1Presidents.reset();
-                req.io.room('team1-play').broadcast('reset-all-play-game');
+                team2Presidents.reset();
+                req.io.room('team2-play').broadcast('reset-all-play-game');
                 break;
 
             default:
@@ -162,6 +159,14 @@ module.exports = function (app) {
                 break;
         }
 
+    });
+
+    app.io.route('auto-complete-guess', function (req) {
+        console.log('auto-complete-guess', req.data);
+        var presidentPrefix = req.data.toLowerCase();
+        var guesses = autocomplete.trie.retrieve(presidentPrefix);
+        console.log('auto-complete-answer', guesses)
+        req.io.emit('auto-complete-answer', guesses );
     });
 
 };

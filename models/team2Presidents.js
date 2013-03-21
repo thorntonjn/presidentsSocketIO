@@ -1,7 +1,7 @@
 // add all-play model logic here
 
 var startTime = String(Math.round(new Date().getTime()/1000));
-console.log("startTime:", startTime);
+console.log("startTime - Presidents Team2:", startTime);
 
 var toHHMMSS = function (sec_numb) {
     var hours   = Math.floor(sec_numb / 3600);

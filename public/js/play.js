@@ -344,6 +344,27 @@ function playGame(config) {
         }
     };
 
+    var isMobile = {
+        Android: function() {
+            return navigator.userAgent.match(/Android/i);
+        },
+        BlackBerry: function() {
+            return navigator.userAgent.match(/BlackBerry/i);
+        },
+        iOS: function() {
+            return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+        },
+        Opera: function() {
+            return navigator.userAgent.match(/Opera Mini/i);
+        },
+        Windows: function() {
+            return navigator.userAgent.match(/IEMobile/i);
+        },
+        any: function() {
+            return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+        }
+    };
+
     var createPresidentImageSelectionScroll = function () {
         var $imageSelectionBanner = $('#image-selection-banner');
         $imageSelectionBanner.empty();
@@ -354,13 +375,20 @@ function playGame(config) {
         }
         $imageSelectionBanner.on('click', presidentImageSelectionCH);
 
-        $("#image-selection-banner").smoothDivScroll({
-            mousewheelScrolling: "allDirections",
-            manualContinuousScrolling: true,
-            autoScrollingMode: "onStart"
-        });
-
-//        return startScroll('image-selection-banner', 'image-box', 250);
+       if (isMobile.any()) {
+            $("#image-selection-banner").smoothDivScroll({
+                hotSpotScrolling: false,
+                touchScrolling: true,
+                manualContinuousScrolling: true,
+                mousewheelScrolling: false
+            });
+        } else {
+            $("#image-selection-banner").smoothDivScroll({
+                mousewheelScrolling: "allDirections",
+                manualContinuousScrolling: true,
+                autoScrollingMode: "onStart"
+            });
+       }
     };
 
     var createPresidentsNotFoundArray = function () {
@@ -443,6 +471,10 @@ function playGame(config) {
         $("#input-president-name").data("source", config.autoComplete);
     } else {
         $("#input-president-name").data("source", presidentNames);
+    }
+
+    if (isMobile.any()) {
+        // re-arrange the view to display better on mobile
     }
 
     // 1. Grab a random president object to be the current president to identify

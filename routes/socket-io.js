@@ -3,6 +3,16 @@ module.exports = function (app) {
     var presidents = require('../models/presidents');
     var team1Presidents = require('../models/team1Presidents');
     var team2Presidents = require('../models/team2Presidents');
+    var autocomplete = require('../models/autocomplete')
+
+    app.io.route('auto-complete-guess', function (req) {
+        console.log('auto-complete-guess', req.data);
+        var presidentPrefix = req.data.toLowerCase();
+        var guesses = autocomplete.trie.retrieve(presidentPrefix);
+        console.log('auto-complete-answer', guesses)
+        req.io.emit('auto-complete-answer', guesses );
+    });
+
 
     // Setup a route for the ready event, and add session data.
     app.io.route('ready', function (req) {
@@ -155,7 +165,3 @@ module.exports = function (app) {
     });
 
 };
-
-
-
-// TODO add route for Chat and auto-complete

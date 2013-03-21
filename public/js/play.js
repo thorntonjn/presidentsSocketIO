@@ -55,6 +55,19 @@ function playGame(config) {
 //        'Lyndon_B_Johnson', 'Richard_Nixon', 'Gerald_Ford', 'Jimmy_Carter', 'Ronald_Reagan',
 //        'George_Bush', 'Bill_Clinton', 'George_W_Bush', 'Barack_Obama'];
 
+    var presidentNames = [
+        'George Washington', 'John Adams', 'Thomas Jefferson',  'James Maddison', 'James Monroe',
+        'John Quincy Adams', 'Andrew Jackson', 'Martin Van Buren', 'William Henry Harrison', 'John Tyler',
+        'James K Polk', 'Zachary Taylor', 'Millard Fillmore', 'Franklin Pierce', 'James Buchanan',
+        'Abraham Lincoln', 'Andrew Johnson', 'Ulysses S Grant', 'Rutherford Hayes', 'James Garfield',
+        'Chester Aurthur', 'Grover Cleveland', 'Benjamin Harrison', 'Grover Cleveland', 'William Mckinley'];
+        'Theodore Roosevelt', 'William Howard Taft', 'Woodrow Wilson', 'Warren G Harding', 'Calvin Coolidge',
+        'Herbert Hoover', 'Franklin D Roosevelt', 'Harry S Truman', 'Dwight D Eisenhower', 'John F Kennedy',
+        'Lyndon B Johnson', 'Richard Nixon', 'Gerald Ford', 'Jimmy Carter', 'Ronald Reagan',
+        'George Bush', 'Bill Clinton', 'George W Bush', 'Barack Obama';
+
+
+
     var createPresidentialData =
         function () {
             var data = [];
@@ -419,10 +432,20 @@ function playGame(config) {
 
     };
 
+    var reset = function () {
+
+    }
+
     // initialize presidential data
     var presidentialData = createPresidentialData();
     var presidentsNotFound = createPresidentsNotFoundArray();
     var presidentsFound = [];
+
+    if (config.autoComplete) {
+        $("#input-president-name").data("source", config.autoComplete);
+    } else {
+        $("#input-president-name").data("source", presidentNames);
+    }
 
     // 1. Grab a random president object to be the current president to identify
     //    populate the presidents photo beneath the text input field
@@ -474,7 +497,7 @@ function playGame(config) {
         $(this).toggleClass('hover_effect');
     });
 
-    return { updatePresidents:updatePresidents, finishGame:finishGame};
+    return { updatePresidents:updatePresidents, finishGame:finishGame, reset:reset};
 
 }
 

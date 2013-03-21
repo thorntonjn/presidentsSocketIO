@@ -1,13 +1,4 @@
-var model = "../models/users.js";
-
 module.exports = function (app) {
-
-//    app.get('/', function (req, res, next) {
-//        model.get_recent(function (err, results) {
-//            // do stuff with your results
-//            res.render('index');
-//        });
-//    });
 
     // socketio Session is automatically setup on initial request.
     app.get('/', function(req, res) {

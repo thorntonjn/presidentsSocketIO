@@ -1,5 +1,3 @@
-//var myGame;
-
 var allPlay = function (myName) {
     var myGame;
 

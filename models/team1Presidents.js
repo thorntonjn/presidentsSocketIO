@@ -4,37 +4,35 @@ var startTime = String(Math.round(new Date().getTime()/1000));
 console.log("startTime:", startTime);
 
 var toHHMMSS = function (sec_numb) {
-    console.log("sec_numb :" + sec_numb);
     var hours   = Math.floor(sec_numb / 3600);
-    console.log("hours:" + hours);
     var minutes = Math.floor((sec_numb - (hours * 3600)) / 60);
-    console.log("minutes:" + minutes);
     var seconds = sec_numb - (hours * 3600) - (minutes * 60);
-    console.log("seconds:" + seconds);
 
     if (hours   < 10) {hours   = "0"+hours;}
     if (minutes < 10) {minutes = "0"+minutes;}
     if (seconds < 10) {seconds = "0"+seconds;}
+    console.log("hours:minutes:seconds :" + hours+':'+minutes+':'+seconds );
+
     return hours+':'+minutes+':'+seconds;
 };
 
 var getElapsedGameTime = function () {
     var endTime = String(Math.round(new Date().getTime()/1000));
-    console.log("startTime:", endTime);
+    console.log("startTime:", startTime);
     console.log("Elapsed Time: " + (endTime - startTime));
     return toHHMMSS(endTime - startTime);
 };
 
 var presidents = [
     'George_Washington', 'John_Adams', 'Thomas_Jefferson',  'James_Maddison', 'James_Monroe',
-    'John_Quincy_Adams', 'Andrew_Jackson', 'Martin_Van_Buren', 'William_Henry_Harrison', 'John_Tyler'];
-//    'James_K_Polk', 'Zachary_Taylor', 'Millard_Fillmore', 'Franklin_Pierce', 'James_Buchanan',
-//    'Abraham_Lincoln', 'Andrew_Johnson', 'Ulysses_S_Grant', 'Rutherford_Hayes', 'James_Garfield',
-//    'Chester_Aurthur', 'Grover_Cleveland', 'Benjamin_Harrison', 'Grover_Cleveland', 'William_Mckinley',
-//    'Theodore_Roosevelt', 'William_Howard_Taft', 'Woodrow_Wilson', 'Warren_G_Harding', 'Calvin_Coolidge',
-//    'Herbert_Hoover', 'Franklin_D_Roosevelt', 'Harry_S_Truman', 'Dwight_D_Eisenhower', 'John_F_Kennedy',
-//    'Lyndon_B_Johnson', 'Richard_Nixon', 'Gerald_Ford', 'Jimmy_Carter', 'Ronald_Reagan',
-//    'George_Bush', 'Bill_Clinton', 'George_W_Bush', 'Barack_Obama'];
+    'John_Quincy_Adams', 'Andrew_Jackson', 'Martin_Van_Buren', 'William_Henry_Harrison', 'John_Tyler',
+    'James_K_Polk', 'Zachary_Taylor', 'Millard_Fillmore', 'Franklin_Pierce', 'James_Buchanan',
+    'Abraham_Lincoln', 'Andrew_Johnson', 'Ulysses_S_Grant', 'Rutherford_Hayes', 'James_Garfield',
+    'Chester_Aurthur', 'Grover_Cleveland', 'Benjamin_Harrison', 'Grover_Cleveland', 'William_Mckinley',
+    'Theodore_Roosevelt', 'William_Howard_Taft', 'Woodrow_Wilson', 'Warren_G_Harding', 'Calvin_Coolidge',
+    'Herbert_Hoover', 'Franklin_D_Roosevelt', 'Harry_S_Truman', 'Dwight_D_Eisenhower', 'John_F_Kennedy',
+    'Lyndon_B_Johnson', 'Richard_Nixon', 'Gerald_Ford', 'Jimmy_Carter', 'Ronald_Reagan',
+    'George_Bush', 'Bill_Clinton', 'George_W_Bush', 'Barack_Obama'];
 
 var createPresidentialData =
     function () {
@@ -56,7 +54,7 @@ var presidentialData = createPresidentialData();
 var reset = function () {
     console.log("resetting presidentialData !!!")
     presidentialData = createPresidentialData();
-    startTime = new Date().getTime();
+    startTime = String(Math.round(new Date().getTime()/1000));
 }
 
 var updatePresident = function (foundPresident) {
@@ -76,7 +74,7 @@ var getPresident = function (inPresident) {
         var president = presidentialData[i];
         if (president.president === inPresident.president && president.index === inPresident.index) {
             outPresident = president;
-           break;
+            break;
         }
     }
     return outPresident;

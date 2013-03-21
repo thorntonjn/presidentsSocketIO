@@ -46,14 +46,14 @@ function playGame(config) {
 
     var presidents = [
         'George_Washington', 'John_Adams', 'Thomas_Jefferson',  'James_Maddison', 'James_Monroe',
-        'John_Quincy_Adams', 'Andrew_Jackson', 'Martin_Van_Buren', 'William_Henry_Harrison', 'John_Tyler'];
-//        'James_K_Polk', 'Zachary_Taylor', 'Millard_Fillmore', 'Franklin_Pierce', 'James_Buchanan',
-//        'Abraham_Lincoln', 'Andrew_Johnson', 'Ulysses_S_Grant', 'Rutherford_Hayes', 'James_Garfield',
-//        'Chester_Aurthur', 'Grover_Cleveland', 'Benjamin_Harrison', 'Grover_Cleveland', 'William_Mckinley'];
-//        'Theodore_Roosevelt', 'William_Howard_Taft', 'Woodrow_Wilson', 'Warren_G_Harding', 'Calvin_Coolidge',
-//        'Herbert_Hoover', 'Franklin_D_Roosevelt', 'Harry_S_Truman', 'Dwight_D_Eisenhower', 'John_F_Kennedy',
-//        'Lyndon_B_Johnson', 'Richard_Nixon', 'Gerald_Ford', 'Jimmy_Carter', 'Ronald_Reagan',
-//        'George_Bush', 'Bill_Clinton', 'George_W_Bush', 'Barack_Obama'];
+        'John_Quincy_Adams', 'Andrew_Jackson', 'Martin_Van_Buren', 'William_Henry_Harrison', 'John_Tyler',
+        'James_K_Polk', 'Zachary_Taylor', 'Millard_Fillmore', 'Franklin_Pierce', 'James_Buchanan',
+        'Abraham_Lincoln', 'Andrew_Johnson', 'Ulysses_S_Grant', 'Rutherford_Hayes', 'James_Garfield',
+        'Chester_Aurthur', 'Grover_Cleveland', 'Benjamin_Harrison', 'Grover_Cleveland', 'William_Mckinley',
+        'Theodore_Roosevelt', 'William_Howard_Taft', 'Woodrow_Wilson', 'Warren_G_Harding', 'Calvin_Coolidge',
+        'Herbert_Hoover', 'Franklin_D_Roosevelt', 'Harry_S_Truman', 'Dwight_D_Eisenhower', 'John_F_Kennedy',
+        'Lyndon_B_Johnson', 'Richard_Nixon', 'Gerald_Ford', 'Jimmy_Carter', 'Ronald_Reagan',
+        'George_Bush', 'Bill_Clinton', 'George_W_Bush', 'Barack_Obama'];
 
     var presidentNames = [
         'George Washington', 'John Adams', 'Thomas Jefferson',  'James Maddison', 'James Monroe',
@@ -65,8 +65,6 @@ function playGame(config) {
         'Herbert Hoover', 'Franklin D Roosevelt', 'Harry S Truman', 'Dwight D Eisenhower', 'John F Kennedy',
         'Lyndon B Johnson', 'Richard Nixon', 'Gerald Ford', 'Jimmy Carter', 'Ronald Reagan',
         'George Bush', 'Bill Clinton', 'George W Bush', 'Barack Obama';
-
-
 
     var createPresidentialData =
         function () {

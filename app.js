@@ -1,7 +1,9 @@
+// Loading the express.io library
 express = require('express.io')
 
 engine = require('ejs-locals')
 
+// Launching the Server
 app = express().http().io()
 
 
@@ -17,7 +19,10 @@ app.use(express.cookieParser())
 app.use(express.session({secret: 'monkey'}))
 app.use(express.static(__dirname + '/public'));
 
+
 routes = require('./routes/index')(app);
+
+// This sets up the socket IO routing
 io_routes = require('./routes/socket-io')(app);
 
 console.log("listening on localhost:8080");
